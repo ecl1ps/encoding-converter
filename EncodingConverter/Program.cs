@@ -29,8 +29,12 @@ namespace EncodingConverter
                 Console.WriteLine($"[!] Encoding '{args[1]}' not recognized");
                 return;
             }
-            
+
+            Console.WriteLine($"[i] Transcoding files in {Directory.GetCurrentDirectory()} and subdirectories");
+
             CheckEncoding(".", fileMask, targetEncoding);
+
+            Console.WriteLine("[i] Transcoding finished");
 
             Console.ReadKey();
         }
