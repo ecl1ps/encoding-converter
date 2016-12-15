@@ -1,0 +1,5 @@
+.suo
+EncodingConverter/bin/
+EncodingConverter/obj/
+EncodingConverter/packages/
+*.csproj.user
