@@ -82,10 +82,14 @@ namespace EncodingConverter
 
             Console.WriteLine($"[+] Charset detected as '{detector.Charset}' with confidence {Math.Round(detector.Confidence * 100)}% in file '{file.Name}'");
 
+            var charset = detector.Charset;
+            if (charset == "windows-1252") // incorrect detection in our case - may not be correct in all cases
+                charset = "windows-1250";
+
             Encoding detectedEncoding;
             try
             {
-                detectedEncoding = Encoding.GetEncoding(detector.Charset);
+                detectedEncoding = Encoding.GetEncoding(charset);
             }
             catch (ArgumentException)
             {
