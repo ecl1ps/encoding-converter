@@ -45,7 +45,16 @@ namespace EncodingConverter
                 if (encoding == null)
                     continue;
 
-                // transcode
+                try
+                {
+                    File.WriteAllText(file, File.ReadAllText(file, encoding), targetEncoding);
+                    Console.WriteLine($"[+] Transcoded file {fi.Name}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"[!] Exception during transcoding file {fi.Name}");
+                    Console.WriteLine(e.Message);
+                }
             }
         }
 
@@ -65,9 +74,9 @@ namespace EncodingConverter
                 return null;
             }
 
-            if (detector.Confidence < 0.5)
+            if (detector.Confidence < 0.9)
             {
-                Console.WriteLine($"[-] Charset detected as '{detector.Charset}' with confidence {Math.Round(detector.Confidence * 100)}% in file '{file.Name}' - skipped!");
+                Console.WriteLine($"[-] Charset detected as '{detector.Charset}' with confidence {Math.Round(detector.Confidence * 100)}% in file '{file.Name}' - skipped - too low confidence!");
                 return null;
             }
 
